@@ -1,6 +1,10 @@
 ## Synopsis
 
-This project is a small app which shows a catalog app. 
+This project is a small app which shows a catalog app which has crud and authentication funcationalities using 
+Flask, sqllite and google api
+
+## Pre-requisites
+- Have sqlalchemy, flask, sqlalchemy.orm, oauth2client.client, httplib2, json, sqllite packages for python
 
 ## Installation
 
@@ -18,6 +22,7 @@ User can do the following functionalities:
 - Delete category item
 - See item description
 
-## Authentication and Authorization features:
+## Authentication and Authorization features
+- Google Authentication
 - Authenticated users can only perform: Add, Edit and Delete category item
 - A user can edit and delete only his own items
