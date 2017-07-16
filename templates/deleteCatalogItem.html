@@ -1,0 +1,21 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h1> Are you sure you want to delete {{item.name}}? </h1>
+
+<form action="{{ url_for('showCatalogCategoryItemsItemDelete',category_id = item.category_id, category_item=category_item)}}" method = 'post'>
+
+<input type='submit', value = 'Delete'>
+
+
+
+</form>
+
+<a href="{{url_for('showCatalogCategoryItems', category_id = category_id)}}">Cancel</a></br>
+<br/>
+
+</body>
+
+</html>

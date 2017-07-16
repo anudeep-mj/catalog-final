@@ -1,0 +1,16 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h1> Item description </h1>
+
+<b><p>{{itemname}}</p></b>
+</br>
+<b>description:</b></p>
+{{itemdesc}}
+</br>
+<a href="{{url_for('showCatalogCategoryItems', category_id = category_id)}}">Cancel</a></br>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h1>All categories</h1>
+{% for c in categories %}
+
+<div>
+
+<a href="{{url_for('showCatalogCategoryItems', category_id = c.id)}}">{{c.name}}</a></br>
+
+
+</div>
+
+
+{% endfor %}
+
+<br/>
+<a href="{{url_for('catalogCategoryAdd')}}">Add catalog category!</a>
+
+<br/>
+<br/>
+<a href="{{url_for('showLogin')}}">Login</a>
+<br/>
+<a href="{{url_for('gdisconnect')}}">Logout</a>
+
+
+</body>
+
+</html>

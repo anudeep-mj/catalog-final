@@ -1,0 +1,22 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h1> New Catalog Item for {{resultname}}</h1>
+
+<form action="{{url_for('showCatalogCategoryItemsItemAdd', category_id=category_id)}}" method='post'>
+	<p>name:</p>
+	<input type="text" size="30" name="name">
+	<p>description:</p>
+	<input type="text" size="30" name="description">
+	</br>
+	</br>
+	<input type="submit" name="Create">
+</form>
+
+<br/>
+<br/>
+<a href="{{url_for('gdisconnect')}}">Logout</a>
+</body>
+</html>
