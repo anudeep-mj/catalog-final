@@ -4,10 +4,10 @@ This project is a small app which shows a catalog app.
 
 ## Installation
 
-Git clone the project.
-run: python database_setup.py <- Sets up the database
-run: python datapopulation.py <- Populates test data
-run: python project.py
+Git clone the project.  
+run: python database_setup.py <- Sets up the database  
+run: python datapopulation.py <- Populates test data  
+run: python project.py  
 
 ## Functionalities
 
