@@ -120,7 +120,7 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
 
-    if(getUserID(login_session['email']) == None):
+    if(getUserID(login_session['email']) is None):
         createUser(login_session)
         user_id = getUserID(login_session['email'])
     else:
@@ -155,7 +155,7 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
-    except:
+    except BaseException:
         return None
 
 
@@ -222,7 +222,8 @@ def showCatalogCategoryItems(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(CategoryItem).filter_by(
         category_id=category.id)
-    return render_template('catalogItems.html', category=category, items=items)
+    return render_template('catalogItems.html',
+                           category=category, items=items)
 
 
 @app.route('/catalog/add', methods=['GET', 'POST'])
@@ -239,13 +240,15 @@ def catalogCategoryAdd():
         return render_template('addCatalogCategory.html')
 
 
-@app.route('/catalog/<int:category_id>/<string:category_item>/desc', methods=['GET'])
+@app.route(
+    '/catalog/<int:category_id>/<string:category_item>/desc', methods=['GET'])
 def showCatalogCategoryItemsItem(category_id, category_item):
     result = session.query(CategoryItem).filter_by(
         category_id=category_id, id=category_item).one()
     print result
     print result.name
-    return render_template('descCatalogItem.html', category_id=category_id, itemname=result.name, itemdesc=result.description)
+    return render_template('descCatalogItem.html', category_id=category_id,
+                           itemname=result.name, itemdesc=result.description)
 
 
 @app.route('/catalog/<int:category_id>/add', methods=['GET', 'POST'])
@@ -262,12 +265,15 @@ def showCatalogCategoryItemsItemAdd(category_id):
         session.add(newItem)
         session.commit()
         flash('New Menu Item Created!')
-        return redirect(url_for('showCatalogCategoryItems', category_id=category_id))
+        return redirect(
+            url_for('showCatalogCategoryItems', category_id=category_id))
     else:
-        return render_template('addCatalogItem.html', category_id=category_id, resultname=result.name)
+        return render_template(
+            'addCatalogItem.html', category_id=category_id, resultname=result.name)
 
 
-@app.route('/catalog/<int:category_id>/<int:category_item>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<int:category_id>/<int:category_item>/edit',
+           methods=['GET', 'POST'])
 def showCatalogCategoryItemsItemEdit(category_id, category_item):
     if 'username' not in login_session:
         return redirect('/login')
@@ -284,14 +290,17 @@ def showCatalogCategoryItemsItemEdit(category_id, category_item):
         session.add(result)
         session.commit()
         flash('Menu Item edited!')
-        return redirect(url_for('showCatalogCategoryItems', category_id=category_id))
+        return redirect(
+            url_for('showCatalogCategoryItems', category_id=category_id))
     else:
-        return render_template('editCatalogItem.html', category_id=category_id, category_item=category_item, item=result, itemname=result.name, itemdesc=result.description)
+        return render_template('editCatalogItem.html', category_id=category_id,
+                               category_item=category_item, item=result, itemname=result.name, itemdesc=result.description)
 
     return 'edit category item'
 
 
-@app.route('/catalog/<int:category_id>/<int:category_item>/delete', methods=['GET', 'POST'])
+@app.route('/catalog/<int:category_id>/<int:category_item>/delete',
+           methods=['GET', 'POST'])
 def showCatalogCategoryItemsItemDelete(category_id, category_item):
     if 'username' not in login_session:
         return redirect('/login')
@@ -304,9 +313,11 @@ def showCatalogCategoryItemsItemDelete(category_id, category_item):
         session.delete(result)
         session.commit()
         flash('Item Deleted!')
-        return redirect(url_for('showCatalogCategoryItems', category_id=category_id))
+        return redirect(
+            url_for('showCatalogCategoryItems', category_id=category_id))
     else:
-        return render_template('deleteCatalogItem.html', category_id=category_id, category_item=category_item, item=result)
+        return render_template(
+            'deleteCatalogItem.html', category_id=category_id, category_item=category_item, item=result)
 
 
 if __name__ == '__main__':
