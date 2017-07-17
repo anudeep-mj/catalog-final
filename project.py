@@ -292,8 +292,10 @@ def showCatalogCategoryItemsItemAdd(category_id):
     result = session.query(Category).filter_by(
         id=category_id).one()
     if request.method == 'POST':
-        newItem = CategoryItem(name=request.form['name'], description=request.form['description'],
-                               category_id=category_id, user_id=login_session['user_id'])
+        newItem = CategoryItem(name=request.form['name'],
+                               description=request.form['description'],
+                               category_id=category_id,
+                               user_id=login_session['user_id'])
         if newItem.user_id != login_session['user_id']:
             return "<script>function myfunction(){alert('Not authorized to access');}</script><body onload='myfunction()'>"
 
@@ -304,7 +306,9 @@ def showCatalogCategoryItemsItemAdd(category_id):
             url_for('showCatalogCategoryItems', category_id=category_id))
     else:
         return render_template(
-            'addCatalogItem.html', category_id=category_id, resultname=result.name)
+            'addCatalogItem.html',
+            category_id=category_id,
+            resultname=result.name)
 
 
 @app.route('/catalog/<int:category_id>/<int:category_item>/edit',
@@ -330,7 +334,9 @@ def showCatalogCategoryItemsItemEdit(
             url_for('showCatalogCategoryItems', category_id=category_id))
     else:
         return render_template('editCatalogItem.html', category_id=category_id,
-                               category_item=category_item, item=result, itemname=result.name, itemdesc=result.description)
+                               category_item=category_item, item=result,
+                               itemname=result.name,
+                               itemdesc=result.description)
 
     return 'edit category item'
 
@@ -353,8 +359,9 @@ def showCatalogCategoryItemsItemDelete(
         return redirect(
             url_for('showCatalogCategoryItems', category_id=category_id))
     else:
-        return render_template(
-            'deleteCatalogItem.html', category_id=category_id, category_item=category_item, item=result)
+        return render_template('deleteCatalogItem.html',
+                               category_id=category_id,
+                               category_item=category_item, item=result)
 
 
 if __name__ == '__main__':
