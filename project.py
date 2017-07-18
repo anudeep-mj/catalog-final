@@ -41,6 +41,7 @@ def showLogin():
         'login.html', STATE=state)
 
 
+# decorater function to check if user is logged in
 def logged_in(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -193,6 +194,7 @@ def getUserID(email):
         return None
 
 
+# user logs out
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get(
@@ -233,7 +235,10 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-
+'''
+Serializing functions which return JSON value of
+category and category item
+'''
 @app.route(
     '/catalog/<int:category_id>/<int:category_item>/JSON')
 def catalogItemJSON(category_id, category_item):
@@ -258,6 +263,7 @@ def showCatalogCategories():
         'catalog.html', categories=categories)
 
 
+# Show items in a catalog category
 @app.route('/catalog/<int:category_id>/items')
 def showCategoryItems(category_id):
     category = session.query(
@@ -268,11 +274,13 @@ def showCategoryItems(category_id):
                            category=category, items=items)
 
 
+# Adding a category in the cataglog
 @app.route('/catalog/add',
            methods=['GET', 'POST'])
 @logged_in
 def addCategory():
     if request.method == 'POST':
+        # new category is created in the catalog
         newCateogory = Category(
             name=request.form['name'])
         session.add(newCateogory)
@@ -295,6 +303,7 @@ def showItemDescription(
                            itemname=result.name, itemdesc=result.description)
 
 
+# Adding an item to a category
 @app.route('/catalog/<int:category_id>/add',
            methods=['GET', 'POST'])
 @logged_in
@@ -302,6 +311,7 @@ def addCategoryItem(category_id):
     result = session.query(Category).filter_by(
         id=category_id).one()
     if request.method == 'POST':
+        # newItem created for a category with its properties
         newItem = CategoryItem(name=request.form['name'],
                                description=request.form['description'],
                                category_id=category_id,
@@ -323,6 +333,7 @@ def addCategoryItem(category_id):
             resultname=result.name)
 
 
+# Editing an item in a category
 @app.route('/catalog/<int:category_id>/<int:category_item>/edit',
            methods=['GET', 'POST'])
 @logged_in
@@ -335,6 +346,7 @@ def editCategoryItem(
                 "{alert('Not authorized to access');}" +
                 "</script><body onload='myfunction()'>")
     if request.method == 'POST':
+        # Item to be edited is updated with new values
         result.name = request.form['name']
         result.description = request.form['description']
         session.add(result)
@@ -351,11 +363,13 @@ def editCategoryItem(
     return 'edit category item'
 
 
+# Deleting an item in a category
 @app.route('/catalog/<int:category_id>/<int:category_item>/delete',
            methods=['GET', 'POST'])
 @logged_in
 def deleteCategoryItem(
         category_id, category_item):
+    # Item to be deleted is found
     result = session.query(CategoryItem).filter_by(
         category_id=category_id, id=category_item).one()
     if result.user_id != login_session['user_id']:
