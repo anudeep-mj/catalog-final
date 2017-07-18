@@ -235,10 +235,10 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-'''
-Serializing functions which return JSON value of
-category and category item
-'''
+
+
+# Serializing functions which return JSON value of
+# category and category item
 @app.route(
     '/catalog/<int:category_id>/<int:category_item>/JSON')
 def catalogItemJSON(category_id, category_item):
