@@ -236,7 +236,6 @@ def gdisconnect():
         return response
 
 
-
 # Serializing functions which return JSON value of
 # category and category item
 @app.route(
