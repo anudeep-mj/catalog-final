@@ -8,7 +8,7 @@
 
 <div>
 
-<a href="{{url_for('showCatalogCategoryItems', category_id = c.id)}}">{{c.name}}</a></br>
+<a href="{{url_for('showCategoryItems', category_id = c.id)}}">{{c.name}}</a></br>
 
 
 </div>
@@ -17,14 +17,15 @@
 {% endfor %}
 
 <br/>
-<a href="{{url_for('catalogCategoryAdd')}}">Add catalog category!</a>
+<a href="{{url_for('addCategory')}}">Add catalog category!</a>
 
 <br/>
 <br/>
-<a href="{{url_for('showLogin')}}">Login</a>
-<br/>
-<a href="{{url_for('gdisconnect')}}">Logout</a>
-
+{% if 'username' not in session %}
+	<a href="{{url_for('showLogin')}}">Login</a>
+{% else %}
+	<a href="{{url_for('gdisconnect')}}">Logout</a>
+{% endif %}
 
 </body>
 
